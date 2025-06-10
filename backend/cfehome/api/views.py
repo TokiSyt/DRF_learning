@@ -1,4 +1,5 @@
 import json
+from django.http import JsonResponse
 from django.forms.models import model_to_dict
 
 # from django.http import JsonResponse
@@ -23,14 +24,23 @@ def api_home(request, *args, **kwargs):
 """
 
 
-@api_view(["GET"])  # choosing method to allow only what we want to
+"""
+    data = {}
+    instance = Product.objects.all().order_by("?").first()
+    if instance:
+        #data = model_to_dict(instance, fields=["id", "title", "price", "sale_price"])
+        data = ProductSerializer(instance).data
+"""
+
+
+@api_view(["POST"])  # choosing method to allow only what we want to
 def api_home(request, *args, **kwargs):
     """
     DRF API VIEW
     """
-    instance = Product.objects.all().order_by("?").first()
-    data = {}
-    if instance:
-        #data = model_to_dict(instance, fields=["id", "title", "price", "sale_price"])
-        data = ProductSerializer(instance).data
-    return Response(data)
+    serializer = ProductSerializer(data = request.data)
+    if serializer.is_valid(raise_exception=True):
+        #instance = serializer.save()
+        print(serializer.data)
+        return Response(serializer.data)
+    return Response({"invalid": "not good data"}, status=400)

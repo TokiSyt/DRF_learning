@@ -11,4 +11,6 @@ class ProductSerializer(serializers.ModelSerializer):
     def get_my_discount(self, obj): #to change the representation
         # obj.user -> user.username
         # obj.category -> category.etc
+        if not hasattr(obj, 'id') and not isinstance(obj, Product):
+            return None
         return obj.get_discount()
