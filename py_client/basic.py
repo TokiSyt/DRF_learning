@@ -7,7 +7,7 @@ endpoint = "http://localhost:8000/api/"
 # -> API (Application Programming Interface)
 # rest api / a web based api by using http request
 
-get_response = requests.get(endpoint, json={"product_id": 123})  # HTTP Request
+get_response = requests.post(endpoint, json={"title": "ABC123", "content": "Hello World", "price": 123})  # HTTP Request
 # print(get_response.text)  # raw text response
 # print(get_response.status_code)
 
