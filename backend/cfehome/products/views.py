@@ -3,6 +3,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from .permissions import IsStaffEditorPermission
+from api.authentication import TokenAuthentication
 
 """
 Generic API Views for CRUD operations:
@@ -20,7 +21,7 @@ from .serializers import ProductSerializer
 class ProductCreateAPIView(generics.ListCreateAPIView): #lists products + allows creation
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    authentication_classes = [authentication.SessionAuthentication]
+    authentication_classes = [authentication.SessionAuthentication, TokenAuthentication]
     permission_classes = [permissions.IsAdminUser, IsStaffEditorPermission] #first in the list, first to get checked
 
     def perform_create(self, serializer):
