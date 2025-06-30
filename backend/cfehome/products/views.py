@@ -1,7 +1,8 @@
-from rest_framework import generics, mixins
+from rest_framework import authentication, generics, mixins, permissions
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
+from .permissions import IsStaffEditorPermission
 
 """
 Generic API Views for CRUD operations:
@@ -16,9 +17,11 @@ from .models import Product
 from .serializers import ProductSerializer
 
 
-class ProductCreateAPIView(generics.CreateAPIView):
+class ProductCreateAPIView(generics.ListCreateAPIView): #lists products + allows creation
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    authentication_classes = [authentication.SessionAuthentication]
+    permission_classes = [permissions.IsAdminUser, IsStaffEditorPermission] #first in the list, first to get checked
 
     def perform_create(self, serializer):
         # serializer.save(user=self.request.user)

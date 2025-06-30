@@ -10,7 +10,10 @@ class Product(models.Model):
     
     @property
     def sale_price(self):
-        return "%.2f" %(float(self.price) * 0.8)
+        return "%.2f" %(float(self.price) * 0.7)
     
     def get_discount(self):
-        return "122"
+        return "30%"
+    
+    def get_sale_event(self):
+        return "Black Friday"
