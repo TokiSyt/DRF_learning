@@ -9,7 +9,15 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ["title", "content", "price", "sale_price", "my_discount", "sale_event"]
+        fields = [
+            "pk",
+            "title",
+            "content",
+            "price",
+            "sale_price",
+            "my_discount",
+            "sale_event",
+        ]
 
     def get_my_discount(self, obj):  # to change the representation
         # obj.user -> user.username
