@@ -1,14 +1,14 @@
 import requests
 
-endpoint = "http://localhost:8000/api/products/1/update/"
+headers = {"Authorization": "Bearer a92a31110592da1d718d44a1f8d7881ed44fb9ef"}
+endpoint = "http://localhost:8000/api/products/20/update/"
 
 data = {
-    "title": "Updated Product Title",
-    "content": "Updated content",
-    "price": 229.99
+    "title": "test from client",
+    "content": "test from client",
 }
 
-put_response = requests.put(endpoint, json=data)
+put_response = requests.put(endpoint, json=data, headers=headers)
 
 print("Status code:", put_response.status_code)
 try:

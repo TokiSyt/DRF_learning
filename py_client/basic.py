@@ -1,23 +1,17 @@
 import requests
 
-# endpoint = "https://httpbin.org/status/200/"
-# endpoint = "https://httpbin.org/anything"
-endpoint = "http://localhost:8000/api/"
+endpoint = "https://httpbin.org/status/200/"
+endpoint = "https://httpbin.org/anything"
+endpoint = "http://localhost:8000/api/" #get_response
+endpoint = "http://localhost:8000/api/" #post_response
 
-# -> API (Application Programming Interface)
-# rest api / a web based api by using http request
-
-get_response = requests.post(endpoint, json={"title": "ABC123", "content": "Hello World", "price": 123})  # HTTP Request
-# print(get_response.text)  # raw text response
+#get_response = requests.get(
+#    endpoint, params={"abc": 123}, json={"query": "Hello world"}
+#)
+post_response = requests.post(endpoint, json={"title": "big title", "content": "Hello World"})  # HTTP Request
+# print(get_response.text)
 # print(get_response.status_code)
-
-"""
-HTTP REQUEST -> HTML
-REST API HTTP REQUEST -> JSON (JavaScript Object Notation) ~ Pyhton Dict
-"""
-
-print(get_response.json())  # -> prints as Py Dict
-
+print(post_response.json())
 """
 {
     "args": {},
