@@ -1,15 +1,16 @@
 # Usually stays in views.py
 
 from rest_framework import viewsets, mixins
+from api.mixins import IsStaffEditorPermission
 from .models import Product
 from .serializers import ProductSerializer
 
 
 class ProductViewSet(viewsets.ModelViewSet):
     """
-    get -> list -> queryset
-    get -> retrieve -> Product instance Detail View
-    post -> create -> new instance
+    get -> list = queryset
+    get -> retrieve = Product instance / Detail View
+    post -> create = new instance
     put -> total update
     patch -> partial update
     delete -> destroy

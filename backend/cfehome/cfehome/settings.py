@@ -145,12 +145,12 @@ REST_FRAMEWORK = {
 }
 '''
 
-REST_FRAMEWORK = { #default settings
-    "DEFAULT_AUTHENTICATION_CLASSES": [ #applies to all views/pages by default - to change must override in the view itself 
+REST_FRAMEWORK = { 
+    "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.SessionAuthentication",
         "api.authentication.TokenAuthentication"
         ],
     "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.IsAuthenticatedOrReadOnly" # GET on everyone
+        "rest_framework.permissions.IsAuthenticatedOrReadOnly" 
         ],
 }

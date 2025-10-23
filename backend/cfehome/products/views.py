@@ -13,15 +13,11 @@ Generic API Views for CRUD operations:
 """
 
 
-class ProductCreateAPIView(
-    generics.ListCreateAPIView, StaffEditorPermissionMixin
-):  # lists products + allows creation
+class ProductListCreateAPIView(StaffEditorPermissionMixin, generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
     def perform_create(self, serializer):
-        # serializer.save(user=self.request.user)
-
         title = serializer.validated_data.get("title")
         content = serializer.validated_data.get("content") or None
         if content is None:
@@ -30,20 +26,15 @@ class ProductCreateAPIView(
         serializer.save(content=content)
 
 
-class ProductDetailAPIView(
-    generics.RetrieveAPIView, StaffEditorPermissionMixin
-):  # GET requests - Single Item
+class ProductDetailAPIView(StaffEditorPermissionMixin, generics.RetrieveAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    # lookup_field = 'pk' -> Products.object.get(pk='abc')
 
 
-class ProductUpdateAPIView(
-    generics.UpdateAPIView, StaffEditorPermissionMixin
-):  # GET requests - Single Item
+class ProductUpdateAPIView(StaffEditorPermissionMixin, generics.UpdateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    lookup_field = "pk"  # -> Products.object.get(pk='abc')
+    lookup_field = "pk"
 
     def perform_update(self, serializer):
         instance = serializer.save()
@@ -52,10 +43,10 @@ class ProductUpdateAPIView(
             instance.save()
 
 
-class ProductDeleteAPIView(generics.DestroyAPIView, StaffEditorPermissionMixin):
+class ProductDeleteAPIView(StaffEditorPermissionMixin, generics.DestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    lookup_field = "pk"  # -> Products.object.get(pk='abc')
+    lookup_field = "pk"
 
     def perform_destroy(self, instance):
         # instance if any change is needed
